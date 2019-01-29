@@ -105,6 +105,7 @@ class Warrior:
             self.remove_warrior(warrior)
             new_path = path_to_rename.split("ibs-")[0] + "ibs-" + new_name
             rename(path_to_rename, new_path)
+            cprint("[+] Done ", "green")
     
     def kill_warrior(self, warrior):
         path_to_kill = self.get_warrior_path(warrior)

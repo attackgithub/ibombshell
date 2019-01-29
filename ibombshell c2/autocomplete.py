@@ -1,6 +1,14 @@
 import os
 import re
-import gnureadline
+try:
+    import readline
+    import rlcompleter
+    if 'libedit' in readline.__doc__:
+        readline.parse_and_bind("bind ^I rl_complete")
+    else:
+        readline.parse_and_bind("tab: complete")
+except:
+    pass
 import sys
 from warrior import Warrior
 
@@ -111,8 +119,8 @@ class Completer(object):
 
     def complete(self, text, state):
         "Generic readline completion entry point."
-        buffer = gnureadline.get_line_buffer()
-        line = gnureadline.get_line_buffer().split()
+        buffer = readline.get_line_buffer()
+        line = readline.get_line_buffer().split()
         # show all commands
         if not line:
             return [c + ' ' for c in self.commands][state]

@@ -1,5 +1,13 @@
 import os
-import gnureadline
+try:
+    import readline
+    import rlcompleter
+    if 'libedit' in readline.__doc__:
+        readline.parse_and_bind("bind ^I rl_complete")
+    else:
+        readline.parse_and_bind("tab: complete")
+except:
+    pass
 from pathlib import Path
 from termcolor import colored, cprint
 import banners
@@ -17,9 +25,9 @@ CLEAR_COMMANDS = ['clear', 'cls']
 def console():
     # Configuring the commpleter
     comp = Completer(['load', 'set', 'show', 'run', 'back', 'warrior', 'quit', 'help'])
-    gnureadline.set_completer_delims(' \t\n;')
-    gnureadline.parse_and_bind("tab: complete")
-    gnureadline.set_completer(comp.complete)
+    readline.set_completer_delims(' \t\n;')
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(comp.complete)
 
     print (banners.get_banner())
     cprint(' [+]', 'yellow', end='')
