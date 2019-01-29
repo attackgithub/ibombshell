@@ -73,6 +73,16 @@ class Completer(object):
         "Not doing nothing for this command right now"
         return []
 
+    def complete_warrior(self, args):
+        if len(args) > 1 and (args[0] == "rename" or args[0] == "kill"):
+            return self.complete_set_warrior(args)
+        my_list = [
+                    option + ' ' for option in ["list", "rename", "kill"] 
+                    if (option.startswith(args[0].strip(" ")) 
+                    and option != args[0])
+                   ]
+        return my_list
+
     def complete_back(self, args):
         "Not doing nothing for this command right now"
         return []
